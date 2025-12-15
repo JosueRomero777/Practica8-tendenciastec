@@ -56,7 +56,20 @@ Paso 3: El servicio `frontend_builder` ejecutará el proceso de build y escribir
 
 Paso 4: Verificar la aplicación en el navegador en `http://localhost` y comprobar que los datos del backend se muestran correctamente.
 
-Figura 2-1. Resultado en el navegador (captura: `img/app_browser.png`).
+Figura 2-1. Resultado en el navegador
+![App en navegador](img/app_browser.png)
+
+Figura 2-2. Estado de contenedores (`docker compose ps`)
+![Estado contenedores](img/docker_compose_ps.png)
+
+Figura 2-3. Diagrama de contenedores
+![Diagrama de contenedores](img/diagram_contenedores.svg)
+
+Figura 2-4. Archivos servidos por Nginx (`/usr/share/nginx/html`)
+![Archivos Nginx](img/nginx_files_dist.png)
+
+Figura 2-5. Logs del backend (peticiones a `/api/procesos`)
+![Logs backend](img/backend_logs.png)
 
 
 
