@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420">
+  <style>
+    .box { fill:#f7f9fc; stroke:#2b6cb0; stroke-width:2; rx:8; }
+    .title { font: 700 18px sans-serif; fill:#2b6cb0; }
+    .label { font: 14px sans-serif; fill:#1a202c; }
+    .small { font: 12px sans-serif; fill:#475569; }
+    .arrow { stroke:#2d3748; stroke-width:2; fill:none; marker-end:url(#arrowhead);} 
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2d3748" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="20" y="28" class="title">Figura 1-1. Diagrama de contenedores</text>
+
+  <!-- Postgres -->
+  <rect x="40" y="60" width="180" height="90" class="box"/>
+  <text x="130" y="90" text-anchor="middle" class="label">Postgres</text>
+  <text x="130" y="110" text-anchor="middle" class="small">DB: maransa</text>
+
+  <!-- Backend -->
+  <rect x="300" y="60" width="200" height="90" class="box"/>
+  <text x="400" y="90" text-anchor="middle" class="label">Backend</text>
+  <text x="400" y="110" text-anchor="middle" class="small">Node / Express (puerto 4000)</text>
+
+  <!-- Frontend Builder -->
+  <rect x="40" y="200" width="260" height="90" class="box"/>
+  <text x="170" y="235" text-anchor="middle" class="label">Frontend Builder</text>
+  <text x="170" y="255" text-anchor="middle" class="small">Node (npm run build) → dist/</text>
+
+  <!-- Volume -->
+  <rect x="340" y="210" width="120" height="50" rx="6" fill="#fff6b8" stroke="#b7791f" stroke-width="2"/>
+  <text x="400" y="235" text-anchor="middle" class="small">Volumen: frontend_dist</text>
+
+  <!-- Nginx -->
+  <rect x="520" y="200" width="220" height="90" class="box"/>
+  <text x="630" y="235" text-anchor="middle" class="label">Nginx</text>
+  <text x="630" y="255" text-anchor="middle" class="small">Sirve /usr/share/nginx/html (puerto 80)</text>
+
+  <!-- Arrows and connections -->
+  <path d="M220 105 L300 105" class="arrow" />
+  <text x="260" y="95" class="small" text-anchor="middle">Conexión DB</text>
+
+  <path d="M400 150 L400 200" class="arrow" />
+  <path d="M400 290 L400 350" class="arrow" style="stroke-dasharray:6,4;"/>
+
+  <path d="M200 245 L340 245" class="arrow" />
+  <text x="270" y="235" class="small" text-anchor="middle">output: dist/</text>
+
+  <path d="M460 235 L520 235" class="arrow" />
+  <text x="490" y="225" class="small" text-anchor="middle">montado en volumen</text>
+
+  <path d="M630 160 L630 200" class="arrow" />
+  <text x="630" y="150" class="small" text-anchor="middle">http (80)</text>
+
+  <!-- Legend -->
+  <rect x="20" y="360" width="760" height="40" rx="6" fill="#edf2f7" stroke="#cbd5e1"/>
+  <text x="40" y="385" class="small">Servicios: Postgres ← Backend → FrontendBuilder → Volumen → Nginx (servir estáticos)</text>
+
+</svg>

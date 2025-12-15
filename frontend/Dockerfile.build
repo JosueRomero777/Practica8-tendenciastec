@@ -1,0 +1,8 @@
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+# Use npm install because this repo doesn't include a package-lock.json
+RUN npm install
+COPY . .
+# The build will write to /app/dist which is expected to be mounted to a named volume
+CMD ["sh","-c","npm run build"]

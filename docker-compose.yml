@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: maransa
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./backend
+    depends_on:
+      - postgres
+    environment:
+      PGHOST: postgres
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: maransa
+      PGPORT: 5432
+      PORT: 4000
+    ports:
+      - "4000:4000"
+
+  frontend_builder:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.build
+    volumes:
+      - frontend_dist:/app/dist
+    depends_on:
+      - backend
+    # at container start this image will run the build and write into the named volume
+    command: ["sh","-c","npm ci && npm run build"]
+
+  nginx:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.nginx
+    depends_on:
+      - frontend_builder
+    ports:
+      - "80:80"
+    volumes:
+      - frontend_dist:/usr/share/nginx/html:ro
+
+volumes:
+  frontend_dist:
